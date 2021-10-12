@@ -41,14 +41,25 @@ namespace MandatoryOneRest.Managers
             return book;
         }
 
-        public Book PutBook(Book book)
+        public Book PutBook(string ISBN, Book updates)
         {
-           return book; // Not finished
+            Book book = _books.Find(book1 => book1.ISBN13 == ISBN);
+            if (book == null) return null;
+            book.Title = updates.Title;
+            book.PageNumber = updates.PageNumber;
+            book.Author = updates.Author;
+            return book;
         }
 
-        public void DeleteBook(string isbn)
+        public Book DeleteBook(string isbn)
         {
-            _books.RemoveAll(x => x.ISBN13 == isbn);
+            Book book = _books.Find(x => x.ISBN13 == isbn);
+            if (book != null)
+            {
+                _books.RemoveAll(x => x.ISBN13 == isbn);
+                return book;
+            }
+            return null;
         }
     }
 }

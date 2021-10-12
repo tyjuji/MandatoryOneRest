@@ -32,21 +32,23 @@ namespace MandatoryOneRest.Controllers
 
         // POST api/<BooksController>
         [HttpPost]
-        public void Post([FromBody] Book book)
+        public Book Post([FromBody] Book book)
         {
-            _manager.PostBook(book);
+            return _manager.PostBook(book);
         }
 
         // PUT api/<BooksController>/5
         [HttpPut("{ISBN13}")]
-        public void Put(string ISBN13, [FromBody] Book book)
+        public Book Put(string ISBN13, [FromBody] Book book)
         {
+            return _manager.PutBook(ISBN13, book);
         }
 
         // DELETE api/<BooksController>/5
         [HttpDelete("{ISBN13}")]
-        public void Delete(string ISBN13)
+        public Book Delete(string ISBN13)
         {
+            return _manager.DeleteBook(ISBN13);
         }
     }
 }
