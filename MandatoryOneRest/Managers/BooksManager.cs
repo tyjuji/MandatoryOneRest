@@ -8,7 +8,7 @@ namespace MandatoryOneRest.Managers
 {
     public class BooksManager
     {
-        private List<Book> _books = new List<Book>{ 
+        private static List<Book> _books = new List<Book>{ 
             new Book {Title = "Computer Networking, Global Edition", 
                     Author = "James Kurose, Keith Ross", 
                     PageNumber = 800, ISBN13 = "9781292405469"},
@@ -33,12 +33,13 @@ namespace MandatoryOneRest.Managers
 
         public Book PostBook(Book book)
         {
-            if(!_books.Contains(book))
+            if(!_books.Any(x => x.ISBN13 == book.ISBN13))
             {
                 _books.Add(book);
+                return book;
             }
 
-            return book;
+            return null;            
         }
 
         public Book PutBook(string ISBN, Book updates)
